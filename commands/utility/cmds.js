@@ -5,7 +5,7 @@ module.exports = {
   name: 'cmds',
   description: 'list all available commands',
   execute: async (msg, args, client) => {
-    const categories = ['utility', 'fun', 'raiding', 'management', 'ghost'];
+    const categories = ['utility', 'raiding', 'management', 'ghost'];
     const commands = {};
     
     categories.forEach(category => {

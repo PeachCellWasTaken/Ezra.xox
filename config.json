@@ -1,7 +1,7 @@
 {
   "token": "token here",
   "prefix": ",",
-  "owner_id": "uid here",
+  "owner_id": "uid",
   "log_level": "silent",
   "language": "en"
 }

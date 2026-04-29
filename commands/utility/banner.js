@@ -1,6 +1,6 @@
 module.exports = {
-  name: 'av',
-  description: 'get user avatar',
+  name: 'banner',
+  description: 'get user banner',
   execute: async (msg, args, client) => {
     let user = msg.mentions.users.first();
     if (!user && args[0]) {
@@ -12,9 +12,11 @@ module.exports = {
     }
     if (!user) user = msg.author;
     
-    const avatar = user.displayAvatarURL({ size: 2048 });
-    const avatarPre = user.avatarURL({ size: 2048 });
-    await msg.channel.send(avatarPre || avatar);
+    const bannerUrl = user.bannerURL({ size: 2048 });
+    if (bannerUrl) {
+      await msg.channel.send(bannerUrl);
+    } else {
+      await msg.channel.send('no banner');
+    }
   }
 };
-

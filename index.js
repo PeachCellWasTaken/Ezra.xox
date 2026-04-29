@@ -38,7 +38,7 @@ const lastDeleted = new Map();
 const commands = new Map();
 const activeCommands = new Map();
 const recentLogs = [];
-const COMMAND_CATEGORIES = ['fun', 'ghost', 'management', 'raiding', 'utility'];
+const COMMAND_CATEGORIES = ['ghost', 'management', 'raiding', 'utility'];
 
 const logEvent = (message) => {
   recentLogs.push(message);
