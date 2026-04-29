@@ -1,53 +1,23 @@
 module.exports = {
   name: 'r4id',
-  description: 'raid server',
-  args: [{ name: 'amount', desc: 'number of times to send message (default 100)' }],
+  description: 'raid all channels',
   execute: async (msg, args, client) => {
     if (!msg.guild) return;
     
-    const amount = parseInt(args[0]) || 100;
+    const raidMsg = `# R4ided by ${msg.author.username} LOSERS.`;
+    const channels = msg.guild.channels.cache.filter(ch => ch.isTextBased());
     
-    const raidMsg = `# R4IDED BY ${msg.author.username} W EZRA.XOX LOLLLLLLLL
-
-# R4IDED BY ${msg.author.username} W EZRA.XOX LOLLLLLLLL
-
-# R4IDED BY ${msg.author.username} W EZRA.XOX LOLLLLLLLL
-# R4IDED BY ${msg.author.username} W EZRA.XOX LOLLLLLLLL
-
-# R4IDED BY ${msg.author.username} W EZRA.XOX LOLLLLLLLL
-
-# R4IDED BY ${msg.author.username} W EZRA.XOX LOLLLLLLLL
-# R4IDED BY ${msg.author.username} W EZRA.XOX LOLLLLLLLL
-
-# R4IDED BY ${msg.author.username} W EZRA.XOX LOLLLLLLLL
-
-# R4IDED BY ${msg.author.username} W EZRA.XOX LOLLLLLLLL
-# R4IDED BY ${msg.author.username} W EZRA.XOX LOLLLLLLLL
-
-# R4IDED BY ${msg.author.username} W EZRA.XOX LOLLLLLLLL
-
-# R4IDED BY ${msg.author.username} W EZRA.XOX LOLLLLLLLL
-# R4IDED BY ${msg.author.username} W EZRA.XOX LOLLLLLLLL
-
-# R4IDED BY ${msg.author.username} W EZRA.XOX LOLLLLLLLL
-
-# R4IDED BY ${msg.author.username} W EZRA.XOX LOLLLLLLLL
-# R4IDED BY ${msg.author.username} W EZRA.XOX LOLLLLLLLL
-
-# R4IDED BY ${msg.author.username} W EZRA.XOX LOLLLLLLLL
-
-# R4IDED BY ${msg.author.username} W EZRA.XOX LOLLLLLLLL
-# R4IDED BY ${msg.author.username} W EZRA.XOX LOLLLLLLLL
-
-# R4IDED BY ${msg.author.username} W EZRA.XOX LOLLLLLLLL
-
-# R4IDED BY ${msg.author.username} W EZRA.XOX LOLLLLLLLL
-# R4IDED BY ${msg.author.username} W EZRA.XOX LOLLLLLLLL
-
-# R4IDED BY ${msg.author.username} W EZRA.XOX LOLLLLLLLL
-
-# R4IDED BY ${msg.author.username} W EZRA.XOX LOLLLLLLLL
-# R4IDED BY ${msg.author.username} W EZRA.XOX LOLLLLLLLL
+    try {
+      for (const [, channel] of channels) {
+        for (let i = 0; i < 15; i++) {
+          try {
+            await channel.send(raidMsg);
+          } catch (e) {}
+        }
+      }
+    } catch (e) {}
+  }
+};
 
 # R4IDED BY ${msg.author.username} W EZRA.XOX LOLLLLLLLL
 
