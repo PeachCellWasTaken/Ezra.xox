@@ -1,5 +1,0 @@
-{
-  "state": "None",
-  "type": "CUSTOM",
-  "name": "None"
-}
