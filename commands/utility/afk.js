@@ -16,6 +16,6 @@ module.exports = {
     };
     save();
     
-    const sent = await msg.channel.send(`afk set: ${message}`);
+    await msg.channel.send(`afk set: ${message}`);
   }
 };

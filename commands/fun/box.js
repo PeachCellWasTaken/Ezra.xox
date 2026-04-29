@@ -9,6 +9,6 @@ module.exports = {
     output += '| ' + text + ' |\n';
     output += '+' + '-'.repeat(text.length + 2) + '+\n';
     output += '```';
-    const sent = await msg.channel.send(output);
+    await msg.channel.send(output);
   }
 };

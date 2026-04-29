@@ -8,6 +8,6 @@ module.exports = {
       const code = c.charCodeAt(0);
       return `${code} `;
     }).join('');
-    const sent = await msg.channel.send(`\`${ascii}\``);
+    await msg.channel.send(`\`${ascii}\``);
   }
 };

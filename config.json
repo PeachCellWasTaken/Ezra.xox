@@ -1,7 +1,7 @@
 {
-  "token": "ur USER token here. ",
-  "prefix": ", || put the prefix here, a prefix basically is how u run the cmd, for example: if the prefix is , then you would run the cmd like this: ,info",
-  "owner_id": "put ur uid here",
-  "log_level": "silent (dont change)",
-  "language": "en or es." 
+  "token": "token here",
+  "prefix": ",",
+  "owner_id": "uid here",
+  "log_level": "silent",
+  "language": "en"
 }

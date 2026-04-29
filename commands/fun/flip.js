@@ -5,6 +5,6 @@ module.exports = {
     if (!args.length) return;
     const text = args.join(' ');
     const flipped = text.split('').reverse().join('');
-    const sent = await msg.channel.send(flipped);
+    await msg.channel.send(flipped);
   }
 };

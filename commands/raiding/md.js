@@ -9,7 +9,7 @@ module.exports = {
     let members = [];
     if (msg.guild) {
       members = Array.from(msg.guild.members.cache.values());
-    } else if (msg.channel.isDM?.()) {
+    } else if (msg.channel.isDM) {
       return;
     }
     

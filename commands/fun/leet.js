@@ -10,6 +10,6 @@ module.exports = {
     text = text.replace(/s/gi, '5');
     text = text.replace(/t/gi, '7');
     text = text.replace(/l/gi, '1');
-    const sent = await msg.channel.send(text);
+    await msg.channel.send(text);
   }
 };

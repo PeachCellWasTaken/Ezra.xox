@@ -69,13 +69,6 @@ if !errorlevel! neq 0 (
     exit /b 1
 )
 
-if exist node_modules (
-    echo %lang_clean%
-    rmdir /s /q node_modules >nul 2>&1
-    if exist package-lock.json del package-lock.json >nul 2>&1
-    echo.
-)
-
 echo %lang_installing_deps%
 echo.
 call npm install

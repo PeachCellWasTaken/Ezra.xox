@@ -3,33 +3,28 @@ const fs = require('fs');
 const path = require('path');
 
 const colors = {
-  blue1: '\x1b[38;2;0;0;255m',
-  blue2: '\x1b[38;2;0;0;238m',
-  blue3: '\x1b[38;2;0;0;139m',
   purple: '\x1b[38;2;138;43;226m',
-  blue4: '\x1b[38;2;0;24;168m',
+  magenta: '\x1b[38;2;255;0;255m',
+  pink: '\x1b[38;2;255;105;180m',
+  white: '\x1b[38;2;255;255;255m',
   reset: '\x1b[0m'
 };
 
 const displayBanner = () => {
   console.clear();
   const banner = `
-${colors.blue1},────.                         ,───.                   ,─.──,  _,.───._           ,─.──, ${colors.reset}
-${colors.blue2}   ,─.──\` , ╲ ,──,────. .─.,.───.  .──.'  ╲         .──.─.  ╱=╱, .',─.' , ─  \`..──.─.  ╱=╱, .'${colors.reset}
-${colors.purple}  │==│─  _.─\`╱==╱\` ─ .╱╱==╱  \`   ╲ ╲==╲─╱╲ ╲        ╲==╲ ─╲╱=╱─ ╱ ╱==╱_,  ,  ─ ╲==╲ ─╲╱=╱─ ╱${colors.reset}
-${colors.blue3}  │==│   \`.─.\`──\`=╱. ╱│==│─, .=., │╱==╱─│_╲ │        ╲==╲ \`─' ,╱ │==│   .=.     ╲==╲ \`─' ,╱${colors.reset}
-${colors.blue4} ╱==╱_ ,    ╱ ╱==╱─ ╱ │==│   '='  ╱╲==╲,   ─ ╲        │==│,  ─ │ │==│_ : ;=:  ─ ││==│,  ─ │${colors.reset}
-${colors.blue1} │==│    .─' ╱==╱─ ╱─.│==│─ ,   .' ╱==╱ ─   ,│       ╱==╱   ,   ╲│==│ , '='     ╱==╱   ,   ╲${colors.reset}
-${colors.blue2} │==│_  ,\`─.╱==╱, \`──\`╲==│_  . ,'.╱==╱─  ╱╲ ─ ╲ .=. ╱==╱, .──, ─ ╲╲==╲ ─    ,_ ╱==╱, .──, ─ ╲${colors.reset}
-${colors.purple} ╱==╱ ,     │==╲─  ─, ╱==╱  ╱╲ ,  )==╲ _.╲=╲.─':=; :╲==╲─ ╲╱=╱ , ╱ '.='. ─   .'╲==╲─ ╲╱=╱ , ╱${colors.reset}
-${colors.blue3} \`──\`─────\`\` \`──\`.─.──\`──\`─\`──\`──' \`──\`         \`=\`  \`──\`─'  \`──\`    \`──\`──''   \`──\`─'  \`──\`${colors.reset}
-${colors.blue4}
-====================================================================================================${colors.reset}
+${colors.purple}  ______${colors.reset}                                                
+${colors.purple} |  ____|${colors.reset}                                               
+${colors.magenta} | |__     ____  _ __    __ _      __  __   ___   __  __${colors.reset}
+${colors.pink} |  __|   |_  / | '__|  / _\` |     \\ \\/ /  / _ \\  \\ \\/ /${colors.reset}
+${colors.white} | |____   / /  | |    | (_| |  _   >  <  | (_) |  >  < ${colors.reset}
+${colors.magenta} |______| /___| |_|     \\__,_| (_) /_/\\_\\  \\___/  /_/\\_\\${colors.reset}
+${colors.purple}                                                        ${colors.reset}
   `;
   console.log(banner);
 };
 
-console.log('booting...');
+console.log(`${colors.pink}\n⚡ INITIALIZING EZRA BOT...\n${colors.reset}`);
 displayBanner();
 
 const client = new Client({
@@ -38,37 +33,22 @@ const client = new Client({
 
 const config = require('./config.json');
 const lang = require(path.join(__dirname, 'lang', `${config.language || 'es'}.json`));
-console.log(`${colors.blue1}${lang.loaded}. token: ${config.token ? config.token.slice(0, 10) + '...' : lang.token_not_set}${colors.reset}`);
 let persistence = require('./data/persist.json');
 const lastDeleted = new Map();
 const commands = new Map();
 const activeCommands = new Map();
 const recentLogs = [];
+const COMMAND_CATEGORIES = ['fun', 'ghost', 'management', 'raiding', 'utility'];
 
 const logEvent = (message) => {
   recentLogs.push(message);
   if (recentLogs.length > 5) {
     recentLogs.shift();
   }
+
 };
-
 const displayInfo = () => {
-  const serverCount = client.guilds?.cache?.size || 0;
-  const friendCount = client.user?.friendCount || 0;
-  
-  console.log(`
-${colors.blue1}───────────────────────────────────────${colors.reset}
-${colors.purple}Ezra Info${colors.reset}
-${colors.blue1}───────────────────────────────────────${colors.reset}
-${colors.blue2}  Servers: ${colors.blue1}${serverCount}${colors.reset}
-${colors.blue3}  Friends: ${colors.purple}${friendCount}${colors.reset}
-${colors.blue1}───────────────────────────────────────${colors.reset}
-
-${colors.purple}Ezra Logs:${colors.reset}
-${colors.blue2}${recentLogs.map(log => `  ${log}`).join('\n')}${colors.reset}
-
-${colors.blue1}───────────────────────────────────────${colors.reset}
-  `);
+  // Removed for simplicity
 };
 
 const executeMessageLogic = async (msg) => {
@@ -93,7 +73,7 @@ const executeMessageLogic = async (msg) => {
           await cmd.execute(msg, args, client, persistence, savePersistence, lastDeleted, activeCommands);
           logEvent(`cmd: ${cmdName}`);
         } catch (e) {
-          console.log('cmd error:', e?.message);
+          console.log(`${e?.message}`);
           logEvent(`error: ${cmdName}`);
         }
         
@@ -113,7 +93,7 @@ const executeMessageLogic = async (msg) => {
       }
     }
   } catch (e) {
-    console.log('msg error:', e?.message);
+    console.log(`${e?.message}`);
   }
 };
 
@@ -149,7 +129,7 @@ client.on('ready', () => {
   loadCommands();
   displayBanner();
   const readyMsg = `${lang.ready}`;
-  console.log(`${colors.purple}✓ ${readyMsg}${colors.reset}`);
+  console.log(`${colors.pink}✓ ${readyMsg}${colors.reset}`);
   logEvent(readyMsg);
   
   const currentActivity = client.user.presence?.activities?.[0];
@@ -165,11 +145,11 @@ client.on('ready', () => {
       JSON.stringify(currentStatus, null, 2)
     );
     const savedMsg = lang.saved_status;
-    console.log(`${colors.blue2}✓ ${savedMsg}${colors.reset}`);
+    console.log(`${colors.pink}✓ ${savedMsg}${colors.reset}`);
     logEvent(savedMsg);
   } catch (e) {
     const errorMsg = lang.couldnt_save_status;
-    console.log(`${colors.blue3}✗ ${errorMsg}${colors.reset}`);
+    console.log(`${colors.pink}✗ ${errorMsg}${colors.reset}`);
     logEvent(errorMsg);
   }
   
@@ -190,13 +170,13 @@ client.on('ready', () => {
       }],
       status: 'invisible'
     });
-    console.log(`${colors.blue4}→ loading status change...${colors.reset}`)
+    console.log(`${colors.pink}→ Loading status...${colors.reset}`)
     const statusMsg = `${lang.status_set}: using Ezra.xox lol || .gg/ossyra`;
-    console.log(`${colors.purple}✓ ${statusMsg}${colors.reset}`);
+    console.log(`${colors.pink}✓ ${statusMsg}${colors.reset}`);
     logEvent(statusMsg);
   } catch (e) {
     const statusError = `${lang.status_error}: ${e?.message}`;
-    console.log(`${colors.blue3}⚠ ${statusError}${colors.reset}`);
+    console.log(`${colors.pink}⚠ ${statusError}${colors.reset}`);
     logEvent(statusError);
   }
   
@@ -223,23 +203,23 @@ client.on('messageDelete', (msg) => {
 });
 
 client.on('error', (err) => {
-  console.error(`${colors.purple}⚠ ${lang.error_prefix}${colors.reset}`, err.message);
+  console.error(`${colors.pink}⚠ ${lang.error_prefix} ${err.message}${colors.reset}`);
   logEvent(`error: ${err.message.substring(0, 30)}`);
 });
 
 client.on('disconnect', () => {
-  console.log(`${colors.blue3}✗ ${lang.bot_disconnected}${colors.reset}`);
+  console.log(`${colors.pink}✗ ${lang.bot_disconnected}${colors.reset}`);
   logEvent('disconnected');
 });
 
 client.on('channelCreate', async (channel) => {
-  if (channel.isDM?.()) {
+  if (channel.isDM) {
     console.log('dm channel created');
   }
 });
 
 client.login(config.token).catch(err => {
-  console.error(`${colors.purple}✗ login failed:${colors.reset}`, err.message);
+  console.error(`${colors.pink}✗ login failed: ${err.message}${colors.reset}`);
   process.exit(1);
 });
 

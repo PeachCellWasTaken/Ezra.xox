@@ -1,7 +1,7 @@
 module.exports = {
   name: 'id',
-  description: 'Get your user ID',
+  description: 'get your uid',
   execute: async (msg, args) => {
-    const sent = await msg.channel.send(msg.author.id);
+    await msg.channel.send(`uid: ${msg.author.id}`);
   }
 };

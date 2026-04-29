@@ -5,11 +5,11 @@ module.exports = {
     const deleted = lastDeleted.get(msg.channelId);
     
     if (!deleted) {
-      const sent = await msg.channel.send('No deleted messages');
+      await msg.channel.send('No deleted messages');
       return;
     }
     
     const info = `**${deleted.author}**: ${deleted.content}`;
-    const sent = await msg.channel.send(info);
+    await msg.channel.send(info);
   }
 };

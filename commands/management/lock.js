@@ -5,7 +5,7 @@ module.exports = {
     if (!msg.guild) return;
     
     try {
-      await msg.channel.permissionOverwrites.edit(msg.guild.id, { SEND_MESSAGES: false });
+      await msg.channel.permissionOverwrites.edit(msg.guild.id, { SendMessages: false });
     } catch (e) {}
   }
 };

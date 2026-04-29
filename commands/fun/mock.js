@@ -14,6 +14,6 @@ module.exports = {
         mocked += char;
       }
     }
-    const sent = await msg.channel.send(mocked);
+    await msg.channel.send(mocked);
   }
 };
